@@ -5,8 +5,9 @@
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js --exec babel-node",
+    "build": "webpack",
     "start": "node dist/server.bundle.js",
-    "dev-watch": "webpack-dashboard -- webpack --watch",
+    "dev-watch": "webpack-dashboard -- webpack -d --watch",
     "test": "mocha --compilers js:babel-register"
   },
   "repository": {
