@@ -4,10 +4,10 @@
   "description": "Node, Express, React, ReactRoute, Webpack and Babel",
   "main": "src/server.js",
   "scripts": {
-    "dev": "nodemon src/server.js --exec babel-node",
-    "build": "webpack",
+    "watch": "webpack-dashboard -- webpack -d --watch --env.dev",
+    "start-dev": "nodemon src/server.js --exec babel-node",
+    "build": "webpack --env.production",
     "start": "node dist/server.bundle.js",
-    "dev-watch": "webpack-dashboard -- webpack -d --watch",
     "test": "mocha --compilers js:babel-register"
   },
   "repository": {
@@ -36,6 +36,7 @@
     "webpack": "^2.2.1",
     "webpack-dashboard": "^0.4.0",
     "webpack-dev-server": "^2.4.1",
+    "webpack-merge": "^4.1.0",
     "webpack-node-externals": "^1.2.0"
   }
 }
