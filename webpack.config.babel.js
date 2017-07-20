@@ -9,6 +9,8 @@ const defaultEnv = {
 
 var loaders = require('./webpack.loaders');
 var nodeExternals = require('webpack-node-externals');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var DashboardPlugin = require('webpack-dashboard/plugin');
 
 var genServerPlugins = (env = defaultEnv) => {
     let serverPlugins = [];
@@ -36,12 +38,12 @@ var genClietPlugins = (env = defaultEnv) => {
             output: {
                 comments: false,
             },
-        })
+        }),
+        new CopyWebpackPlugin([{from: 'src/public'}])
     ];
     if (env.dev) {
-        let DashboardPlugin = require('webpack-dashboard/plugin');
         clientPlugins.push(
-            new DashboardPlugin()
+            //new DashboardPlugin()
         )
     }
     return clientPlugins;
@@ -64,8 +66,8 @@ export default (env = defaultEnv) => ([
         {
             entry: './src/views/index.js',
             output: {
-                path: path.join(__dirname, 'dist', 'public', 'js'),
-                filename: 'app.bundle.js',
+                path: path.join(__dirname, 'dist', 'public'),
+                filename: 'js/app.bundle.js',
             },
             module: {
                 loaders

@@ -3,8 +3,7 @@ import router from './routes/index';
 
 let app = express();
 
-app.use('/js', express.static('./dist/public/js'));
-app.use('/css', express.static('./dist/public/css'));
+app.use('/public', express.static('./dist/public'));
 
 
 app.use('/', router);

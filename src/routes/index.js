@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
 		} else if (renderProps) {
 
 		    /*
-             http://redux.js.org/docs/recipes/ServerRendering.html
+                    http://redux.js.org/docs/recipes/ServerRendering.html
 		     */
 			const store = createStore(reducers);
 
@@ -51,11 +51,11 @@ router.get('/', (req, res) => {
 			 */
 			store.dispatch({
 			    type: ADD_ITEM,
-                payload: {
+                            payload: {
 			        name: 'Routers',
-                    description: 'Description for user\'s detail'
-                }
-            });
+                                description: 'Description for user\'s detail'
+                            }
+                        });
 
 			const finalState = store.getState();
 
@@ -72,7 +72,7 @@ In this function, you can render you html part of the webpage. You can add some 
 using JS variables.
  */
 function renderFullPage(html, initialState) {
-	return `
+    return `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -84,7 +84,7 @@ function renderFullPage(html, initialState) {
 
     	<!-- Bootstrap CSS -->
     	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-    	<link rel="stylesheet" href="./css/main.css">
+    	<link rel="stylesheet" href="/public/lib/css/main.css">
     </head>
     <body>
 
@@ -92,7 +92,7 @@ function renderFullPage(html, initialState) {
         <script>
             window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
           </script>
-    	<script src="./js/app.bundle.js"></script>
+    	<script src="/public/js/app.bundle.js"></script>
     	<!-- jQuery first, then Bootstrap JS. -->
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script>
