@@ -61,7 +61,7 @@ var genClietPlugins = (env = defaultEnv) => {
     if (env.dev) {
         loaders.push(
             {
-                test: /\.(sass|scss)$/,
+                test: /\.(css|sass|scss)$/,
                 exclude: /node_modules/,
                 use: [{
                     loader: "style-loader"
