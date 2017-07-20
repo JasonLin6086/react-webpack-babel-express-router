@@ -10,7 +10,7 @@ boilerplate for React, ReactRouter, Express, Node, Webpack and Babel
 ├── src
 │   ├── server.js
 │   ├── public
-│   │   ├── lib
+│   │   ├── vendor
 │   │   │   ├── css
 │   │   │   │   ├── main.css
 │   │   │   ├── js
