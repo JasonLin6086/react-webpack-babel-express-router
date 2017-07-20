@@ -1,10 +1,5 @@
 module.exports = [
   {
-    test: /\.scss$/,
-    loaders: ['style-loader', 'css-loader?importLoaders=1', 'sass-loader'],
-    exclude: ['node_modules']
-  },
-  {
     test: /\.jsx?$/,
     exclude: /(node_modules|bower_components|public\/)/,
     loader: "babel-loader"

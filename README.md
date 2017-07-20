@@ -1,5 +1,7 @@
-# boilerplate for React, ReactRouter, Express, Node, Webpack and Babel
-#### Structure
+# What is this?
+boilerplate for React, ReactRouter, Express, Node, Webpack and Babel
+
+# Structure
 ```
 ├── .babelrc
 ├── package.json

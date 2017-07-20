@@ -5,6 +5,7 @@ import { createStore } from 'redux';
 import { Router, browserHistory } from 'react-router';
 import reducers from './src/reducers/index';
 import routes from './src/routes';
+import './scss/app.scss'
 
 
 /*

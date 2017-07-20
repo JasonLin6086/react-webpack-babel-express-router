@@ -11,6 +11,7 @@ var loaders = require('./webpack.loaders');
 var nodeExternals = require('webpack-node-externals');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var DashboardPlugin = require('webpack-dashboard/plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var genServerPlugins = (env = defaultEnv) => {
     let serverPlugins = [];
@@ -39,15 +40,52 @@ var genClietPlugins = (env = defaultEnv) => {
                 comments: false,
             },
         }),
-        new CopyWebpackPlugin([{from: 'src/public'}])
+        new CopyWebpackPlugin([{from: 'src/public/vendor', to: 'vendor'}]),
     ];
     if (env.dev) {
         clientPlugins.push(
             //new DashboardPlugin()
         )
+    } else {
+        clientPlugins.push(
+            new ExtractTextPlugin({
+                filename: '[name].bundle.css',
+                allChunks: true,
+            })
+        )
     }
     return clientPlugins;
 };
+
+((env = defaultEnv) => {
+    if (env.dev) {
+        loaders.push(
+            {
+                test: /\.(sass|scss)$/,
+                exclude: /node_modules/,
+                use: [{
+                    loader: "style-loader"
+                }, {
+                    loader: "css-loader"
+                }, {
+                    loader: "sass-loader"
+                }],
+            }
+        )
+    } else {
+        loaders.push(
+            {
+                test: /\.(css|sass|scss)$/,
+                loaders: ExtractTextPlugin.extract({
+                    fallbackLoader: 'style-loader',
+                    loader: 'css!postcss!sass',
+                }),
+                exclude: ['node_modules']
+            }
+        );
+    }
+    return loaders;
+})();
 
 export default (env = defaultEnv) => ([
         {
