@@ -1,5 +1,7 @@
-boilerplate for React, ReactRouter, Express, Node, Webpack and Babel
-
+# boilerplate for React, ReactRouter, Express, Node, Webpack and Babel
+----
+#### Structure
+```
 ├── .babelrc
 ├── package.json
 ├── webpack.config.babel.js
@@ -31,3 +33,8 @@ boilerplate for React, ReactRouter, Express, Node, Webpack and Babel
 │   │   │   │   ├── lists.js
 │   ├── test
 │   │   ├── index.js
+```
+
+License
+----
+MIT
