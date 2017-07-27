@@ -1,4 +1,3 @@
 node_modules
-dist/server.bundle.js
-dist/public/js/app.bundle.js
+dist
 npm-debug.log

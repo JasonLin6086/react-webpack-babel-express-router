@@ -14,6 +14,7 @@ var DashboardPlugin = require('webpack-dashboard/plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var genServerPlugins = (env = defaultEnv) => {
+    genLoaders(env);
     let serverPlugins = [];
     if (env.production) {
         serverPlugins.push(
@@ -30,7 +31,29 @@ var genServerPlugins = (env = defaultEnv) => {
     return serverPlugins;
 };
 
-var genClietPlugins = (env = defaultEnv) => {
+var genLoaders = (env = defaultEnv) => {
+    if (env.dev) {
+        loaders.push(
+            {
+                test: /\.(css|sass|scss)$/,
+                exclude: /node_modules/,
+                use: ["style-loader", "css-loader", "sass-loader"],
+            }
+        )
+    } else {
+        loaders.push(
+            {
+                test: /\.(css|sass|scss)$/,
+                use: ExtractTextPlugin.extract({
+                      fallback: "style-loader",
+                      use: ["css-loader", "sass-loader"]
+                })
+            }
+        );
+    }
+};
+
+var genClietPluginsAndLoaders = (env = defaultEnv) => {
     let clientPlugins = [
         new webpack.optimize.UglifyJsPlugin({
             compress: {
@@ -40,52 +63,22 @@ var genClietPlugins = (env = defaultEnv) => {
                 comments: false,
             },
         }),
-        new CopyWebpackPlugin([{from: 'src/public/vendor', to: 'vendor'}]),
+        new CopyWebpackPlugin([{from: 'src/public'}]),
     ];
     if (env.dev) {
         clientPlugins.push(
             //new DashboardPlugin()
-        )
+        );
     } else {
         clientPlugins.push(
             new ExtractTextPlugin({
-                filename: '[name].bundle.css',
+                filename: 'css/[name].bundle.css',
                 allChunks: true,
             })
-        )
+        );
     }
     return clientPlugins;
 };
-
-((env = defaultEnv) => {
-    if (env.dev) {
-        loaders.push(
-            {
-                test: /\.(css|sass|scss)$/,
-                exclude: /node_modules/,
-                use: [{
-                    loader: "style-loader"
-                }, {
-                    loader: "css-loader"
-                }, {
-                    loader: "sass-loader"
-                }],
-            }
-        )
-    } else {
-        loaders.push(
-            {
-                test: /\.(css|sass|scss)$/,
-                loaders: ExtractTextPlugin.extract({
-                    fallbackLoader: 'style-loader',
-                    loader: 'css!postcss!sass',
-                }),
-                exclude: ['node_modules']
-            }
-        );
-    }
-    return loaders;
-})();
 
 export default (env = defaultEnv) => ([
         {
@@ -94,12 +87,10 @@ export default (env = defaultEnv) => ([
                 path: path.join(__dirname, 'dist'),
                 filename: 'server.bundle.js',
             },
-            module: {
-                loaders
-            },
+            plugins: genServerPlugins(env),
             target: 'node',
             externals: [nodeExternals()],
-            plugins: genServerPlugins(env),
+            module: { rules: loaders }
         },
         {
             entry: './src/views/index.js',
@@ -107,9 +98,7 @@ export default (env = defaultEnv) => ([
                 path: path.join(__dirname, 'dist', 'public'),
                 filename: 'js/app.bundle.js',
             },
-            module: {
-                loaders
-            },
-            plugins: genClietPlugins(env),
+            plugins: genClietPluginsAndLoaders(env),
+            module: { rules: loaders }
         }
 ]);

@@ -84,7 +84,8 @@ function renderFullPage(html, initialState) {
 
     	<!-- Bootstrap CSS -->
     	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-    	<link rel="stylesheet" href="/public/vendor/css/main.css">
+    	<link rel="stylesheet" href="/public/css/main.bundle.css">
+        <link rel="stylesheet" href="/public/css/main.css">
     </head>
     <body>
 
